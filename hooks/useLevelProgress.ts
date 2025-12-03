@@ -20,6 +20,11 @@ export function useLevelProgress() {
 
   const loadProgress = async () => {
     try {
+      if (!supabase) {
+        setLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase
         .from('level_progress')
         .select('*')
@@ -52,6 +57,21 @@ export function useLevelProgress() {
     time?: number
   ) => {
     try {
+      if (!supabase) {
+        const existingProgress = progress[levelId];
+        const newStars = Math.max(existingProgress?.stars || 0, stars);
+        setProgress(prev => ({
+          ...prev,
+          [levelId]: {
+            level_id: levelId,
+            completed,
+            stars: newStars,
+            best_time: time,
+          }
+        }));
+        return;
+      }
+
       const existingProgress = progress[levelId];
       const newStars = Math.max(existingProgress?.stars || 0, stars);
       const newBestTime =
