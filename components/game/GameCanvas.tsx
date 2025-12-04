@@ -149,34 +149,41 @@ export default function GameCanvas({ gameState, onProgressUpdate, onDetectionCha
     return () => clearInterval(detectionInterval);
   }, [gameState, levelConfig, centerX, centerY, onDetectionChange, onGameOver]);
 
-  const currentNpcX = useRef(centerX + levelConfig.npc.startPosition.x);
+  const currentPatrolIndex = useRef(0);
 
   useEffect(() => {
     if (gameState !== 'playing') return;
 
-    const npcInterval = setInterval(() => {
-      let newX = currentNpcX.current + (100 * npcDirection.current);
+    const moveToNextPatrolPoint = () => {
+      const patrolPath = levelConfig.npc.patrolPath;
+      if (!patrolPath || patrolPath.length === 0) return;
 
-      if (newX >= GAME_WIDTH - 100) {
-        npcDirection.current = -1;
-        newX = GAME_WIDTH - 100;
-      }
-      if (newX <= 100) {
-        npcDirection.current = 1;
-        newX = 100;
-      }
+      currentPatrolIndex.current = (currentPatrolIndex.current + 1) % patrolPath.length;
+      const nextPoint = patrolPath[currentPatrolIndex.current];
 
-      currentNpcX.current = newX;
+      const newX = centerX + nextPoint.x;
+      const newY = centerY + nextPoint.y;
+
       currentNpcPos.current.x = newX;
-      Animated.timing(npcX, {
-        toValue: newX,
-        duration: 1500,
-        useNativeDriver: true,
-      }).start();
-    }, 2000);
+      currentNpcPos.current.y = newY;
 
+      Animated.parallel([
+        Animated.timing(npcX, {
+          toValue: newX,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(npcY, {
+          toValue: newY,
+          duration: 2000,
+          useNativeDriver: true,
+        })
+      ]).start();
+    };
+
+    const npcInterval = setInterval(moveToNextPatrolPoint, 2500);
     return () => clearInterval(npcInterval);
-  }, [gameState, npcX, centerX, levelConfig.npc.startPosition.x]);
+  }, [gameState, npcX, npcY, centerX, centerY, levelConfig.npc.patrolPath]);
 
   const gestureStartPos = useRef({ x: 0, y: 0 });
   const isValidGesture = useRef(false);
