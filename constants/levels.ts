@@ -138,21 +138,21 @@ export const LEVELS: LevelConfig[] = [
     npc: {
       type: "librarian",
       name: "Librarian",
-      startPosition: { x: -200, y: -300 },
+      startPosition: { x: -100, y: -280 },
       animation: "patrol"
     },
     props: [
-      { type: "bookshelf", position: { x: -220, y: -200 }, width: 80, height: 180 },
-      { type: "bookshelf", position: { x: 220, y: -150 }, width: 80, height: 180 },
+      { type: "bookshelf", position: { x: -180, y: -200 }, width: 80, height: 180 },
+      { type: "bookshelf", position: { x: 180, y: -150 }, width: 80, height: 180 },
       { type: "table", position: { x: 0, y: -150 }, width: 120, height: 80 }
     ],
     obstacles: [
-      { position: { x: -200, y: -180 }, width: 60, height: 20 },
-      { position: { x: 180, y: -130 }, width: 20, height: 150 }
+      { position: { x: -160, y: -180 }, width: 60, height: 20 },
+      { position: { x: 150, y: -130 }, width: 20, height: 120 }
     ],
     escapeZone: {
-      position: { x: 280, y: 50 },
-      width: 70,
+      position: { x: 160, y: 60 },
+      width: 80,
       height: 100
     }
   },
@@ -166,7 +166,7 @@ export const LEVELS: LevelConfig[] = [
     prankItem: {
       type: "dumbbell",
       name: "Heavy Weight",
-      position: { x: -180, y: -200 }
+      position: { x: -150, y: -180 }
     },
     target: {
       type: "bench",
@@ -176,18 +176,19 @@ export const LEVELS: LevelConfig[] = [
     npc: {
       type: "trainer",
       name: "Trainer",
-      startPosition: { x: 150, y: -250 },
+      startPosition: { x: 120, y: -250 },
       animation: "patrol"
     },
     props: [
       { type: "bench", position: { x: 0, y: -200 }, width: 100, height: 60 },
-      { type: "mirror", position: { x: 250, y: -200 }, width: 100, height: 200 }
+      { type: "mirror", position: { x: 180, y: -200 }, width: 100, height: 200 }
     ],
     obstacles: [
-      { position: { x: -180, y: -120 }, width: 70, height: 20 }
+      { position: { x: -150, y: -100 }, width: 70, height: 20 },
+      { position: { x: 80, y: -150 }, width: 60, height: 20 }
     ],
     escapeZone: {
-      position: { x: -290, y: 50 },
+      position: { x: -160, y: 60 },
       width: 80,
       height: 100
     }
@@ -202,28 +203,29 @@ export const LEVELS: LevelConfig[] = [
     prankItem: {
       type: "shoes",
       name: "Your Shoes",
-      position: { x: -250, y: 100 }
+      position: { x: -150, y: 80 }
     },
     target: {
       type: "bedroom-door",
       name: "Your Room",
-      position: { x: 250, y: -150 }
+      position: { x: 150, y: -100 }
     },
     npc: {
       type: "parent",
       name: "Parent",
-      startPosition: { x: 100, y: -250 },
+      startPosition: { x: 30, y: -220 },
       animation: "sleeping"
     },
     props: [
-      { type: "door", position: { x: 80, y: -270 }, width: 80, height: 140 }
+      { type: "door", position: { x: 20, y: -240 }, width: 80, height: 140 }
     ],
     obstacles: [
-      { position: { x: -50, y: -20 }, width: 20, height: 100 }
+      { position: { x: -50, y: -20 }, width: 20, height: 100 },
+      { position: { x: 80, y: -80 }, width: 80, height: 20 }
     ],
     escapeZone: {
-      position: { x: 250, y: -180 },
-      width: 70,
+      position: { x: 150, y: -100 },
+      width: 80,
       height: 120
     }
   },
@@ -237,27 +239,29 @@ export const LEVELS: LevelConfig[] = [
     prankItem: {
       type: "confidence",
       name: "Confidence",
-      position: { x: -200, y: -100 }
+      position: { x: -150, y: -100 }
     },
     target: {
       type: "crush-wave",
       name: "Your Crush",
-      position: { x: 150, y: -200 }
+      position: { x: 130, y: -180 }
     },
     npc: {
       type: "friend",
       name: "Protective Friend",
-      startPosition: { x: 180, y: -180 },
+      startPosition: { x: 140, y: -160 },
       animation: "watching"
     },
     props: [
-      { type: "bench", position: { x: -100, y: -50 }, width: 100, height: 50 }
+      { type: "bench", position: { x: -100, y: -50 }, width: 100, height: 50 },
+      { type: "plant", position: { x: 60, y: -220 }, width: 50, height: 60 }
     ],
     obstacles: [
-      { position: { x: -20, y: -120 }, width: 120, height: 20 }
+      { position: { x: -20, y: -120 }, width: 100, height: 20 },
+      { position: { x: 100, y: -80 }, width: 20, height: 80 }
     ],
     escapeZone: {
-      position: { x: -280, y: 80 },
+      position: { x: -160, y: 70 },
       width: 80,
       height: 100
     }
@@ -282,17 +286,19 @@ export const LEVELS: LevelConfig[] = [
     npc: {
       type: "lifeguard",
       name: "Lifeguard",
-      startPosition: { x: 200, y: -300 },
+      startPosition: { x: 130, y: -260 },
       animation: "watching"
     },
     props: [
-      { type: "umbrella", position: { x: 120, y: -180 }, width: 80, height: 100 }
+      { type: "umbrella", position: { x: 120, y: -180 }, width: 80, height: 100 },
+      { type: "towel", position: { x: -80, y: -50 }, width: 60, height: 80 }
     ],
     obstacles: [
-      { position: { x: 50, y: -100 }, width: 20, height: 80 }
+      { position: { x: 50, y: -100 }, width: 20, height: 80 },
+      { position: { x: -120, y: -130 }, width: 80, height: 20 }
     ],
     escapeZone: {
-      position: { x: -290, y: 50 },
+      position: { x: -160, y: 60 },
       width: 80,
       height: 100
     }
@@ -307,28 +313,30 @@ export const LEVELS: LevelConfig[] = [
     prankItem: {
       type: "student-id",
       name: "Student ID",
-      position: { x: -220, y: -80 }
+      position: { x: -150, y: -80 }
     },
     target: {
       type: "dorm-door",
       name: "Your Dorm",
-      position: { x: 260, y: -100 }
+      position: { x: 150, y: -100 }
     },
     npc: {
       type: "ra",
       name: "RA",
-      startPosition: { x: 50, y: -200 },
+      startPosition: { x: 30, y: -200 },
       animation: "patrol"
     },
     props: [
-      { type: "door", position: { x: 260, y: -130 }, width: 70, height: 120 }
+      { type: "door", position: { x: 150, y: -130 }, width: 70, height: 120 },
+      { type: "water-fountain", position: { x: -100, y: -150 }, width: 60, height: 80 }
     ],
     obstacles: [
-      { position: { x: -50, y: -130 }, width: 80, height: 20 }
+      { position: { x: -50, y: -130 }, width: 80, height: 20 },
+      { position: { x: 80, y: -180 }, width: 20, height: 100 }
     ],
     escapeZone: {
-      position: { x: 260, y: -130 },
-      width: 70,
+      position: { x: 150, y: -100 },
+      width: 80,
       height: 120
     }
   },
@@ -342,29 +350,30 @@ export const LEVELS: LevelConfig[] = [
     prankItem: {
       type: "cupcake",
       name: "Delicious Cupcake",
-      position: { x: 180, y: -250 }
+      position: { x: 130, y: -220 }
     },
     target: {
       type: "exit-kitchen",
       name: "Kitchen Exit",
-      position: { x: -260, y: -50 }
+      position: { x: -150, y: -80 }
     },
     npc: {
       type: "chef",
       name: "Head Chef",
-      startPosition: { x: 100, y: -280 },
+      startPosition: { x: 80, y: -250 },
       animation: "cooking"
     },
     props: [
-      { type: "counter", position: { x: 150, y: -270 }, width: 150, height: 70 },
-      { type: "stove", position: { x: 80, y: -300 }, width: 80, height: 60 },
-      { type: "fridge", position: { x: -200, y: -200 }, width: 90, height: 140 }
+      { type: "counter", position: { x: 120, y: -240 }, width: 130, height: 70 },
+      { type: "stove", position: { x: 60, y: -270 }, width: 80, height: 60 },
+      { type: "fridge", position: { x: -120, y: -180 }, width: 90, height: 140 }
     ],
     obstacles: [
-      { position: { x: 50, y: -250 }, width: 20, height: 100 }
+      { position: { x: 40, y: -220 }, width: 20, height: 100 },
+      { position: { x: -80, y: -140 }, width: 100, height: 20 }
     ],
     escapeZone: {
-      position: { x: -280, y: -80 },
+      position: { x: -150, y: -80 },
       width: 80,
       height: 120
     }
@@ -384,22 +393,24 @@ export const LEVELS: LevelConfig[] = [
     target: {
       type: "romantic-spot",
       name: "Romantic Spot",
-      position: { x: 150, y: -220 }
+      position: { x: 130, y: -200 }
     },
     npc: {
       type: "guard",
       name: "Security Guard",
-      startPosition: { x: -220, y: -250 },
+      startPosition: { x: -120, y: -230 },
       animation: "patrol"
     },
     props: [
-      { type: "railing", position: { x: 200, y: -230 }, width: 150, height: 20 }
+      { type: "railing", position: { x: 160, y: -210 }, width: 120, height: 20 },
+      { type: "bench", position: { x: -50, y: -100 }, width: 80, height: 50 }
     ],
     obstacles: [
-      { position: { x: -200, y: -180 }, width: 80, height: 20 }
+      { position: { x: -150, y: -160 }, width: 80, height: 20 },
+      { position: { x: 60, y: -150 }, width: 20, height: 100 }
     ],
     escapeZone: {
-      position: { x: -290, y: 80 },
+      position: { x: -160, y: 70 },
       width: 80,
       height: 100
     }
