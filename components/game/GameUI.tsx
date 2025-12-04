@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Animated, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Pause, Play, Home, RotateCcw, ArrowRight, X } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
@@ -154,36 +154,30 @@ export default function GameUI({
         transparent
         animationType="fade"
         onRequestClose={onResume}>
-        <TouchableOpacity
-          style={styles.modal}
-          activeOpacity={1}
-          onPress={onResume}>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={(e) => e.stopPropagation()}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>PAUSED</Text>
+        <View style={styles.modal}>
+          <Pressable style={styles.modalBackdrop} onPress={onResume} />
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>PAUSED</Text>
 
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={onResume}
-                activeOpacity={0.7}>
-                <Play size={20} color="#FFF" />
-                <Text style={styles.modalButtonText}>Resume</Text>
-              </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={onResume}
+              activeOpacity={0.7}>
+              <Play size={20} color="#FFF" />
+              <Text style={styles.modalButtonText}>Resume</Text>
+            </TouchableOpacity>
 
-              <TouchableOpacity
-                style={[styles.modalButton, styles.modalButtonSecondary]}
-                onPress={handleHome}
-                activeOpacity={0.7}>
-                <Home size={20} color="#2D3748" />
-                <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
-                  Home
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.modalButton, styles.modalButtonSecondary]}
+              onPress={handleHome}
+              activeOpacity={0.7}>
+              <Home size={20} color="#2D3748" />
+              <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
+                Home
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Modal>
 
       <Modal
@@ -191,59 +185,53 @@ export default function GameUI({
         transparent
         animationType="fade"
         onRequestClose={handleClose}>
-        <TouchableOpacity
-          style={styles.modal}
-          activeOpacity={1}
-          onPress={handleClose}>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={(e) => e.stopPropagation()}>
-            <View style={styles.modalContent}>
+        <View style={styles.modal}>
+          <Pressable style={styles.modalBackdrop} onPress={handleClose} />
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={handleClose}
+              activeOpacity={0.7}>
+              <X size={28} color="#94A3B8" />
+            </TouchableOpacity>
+
+            <Text style={styles.modalTitle}>PRANK COMPLETE!</Text>
+            <Text style={styles.modalSubtitle}>You sneaky legend!</Text>
+
+            <View style={styles.stars}>
+              <Text style={styles.starEmoji}>⭐</Text>
+              <Text style={styles.starEmoji}>⭐</Text>
+              <Text style={styles.starEmoji}>⭐</Text>
+            </View>
+
+            {nextLevel <= 10 ? (
               <TouchableOpacity
-                style={styles.closeButton}
+                style={styles.modalButton}
+                onPress={handleNextLevel}
+                activeOpacity={0.7}>
+                <Text style={styles.modalButtonText}>Play Level {nextLevel}</Text>
+                <ArrowRight size={20} color="#FFF" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.modalButton}
                 onPress={handleClose}
                 activeOpacity={0.7}>
-                <X size={24} color="#718096" />
+                <Text style={styles.modalButtonText}>View All Levels</Text>
               </TouchableOpacity>
+            )}
 
-              <Text style={styles.modalTitle}>PRANK COMPLETE!</Text>
-              <Text style={styles.modalSubtitle}>You sneaky legend!</Text>
-
-              <View style={styles.stars}>
-                <Text style={styles.starEmoji}>⭐</Text>
-                <Text style={styles.starEmoji}>⭐</Text>
-                <Text style={styles.starEmoji}>⭐</Text>
-              </View>
-
-              {nextLevel <= 10 ? (
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={handleNextLevel}
-                  activeOpacity={0.7}>
-                  <Text style={styles.modalButtonText}>Play Level {nextLevel}</Text>
-                  <ArrowRight size={20} color="#FFF" />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={handleClose}
-                  activeOpacity={0.7}>
-                  <Text style={styles.modalButtonText}>View All Levels</Text>
-                </TouchableOpacity>
-              )}
-
-              <TouchableOpacity
-                style={[styles.modalButton, styles.modalButtonSecondary]}
-                onPress={handleHome}
-                activeOpacity={0.7}>
-                <Home size={20} color="#2D3748" />
-                <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
-                  Home
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.modalButton, styles.modalButtonSecondary]}
+              onPress={handleHome}
+              activeOpacity={0.7}>
+              <Home size={20} color="#2D3748" />
+              <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
+                Home
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Modal>
 
       <Modal
@@ -251,46 +239,40 @@ export default function GameUI({
         transparent
         animationType="fade"
         onRequestClose={handleClose}>
-        <TouchableOpacity
-          style={styles.modal}
-          activeOpacity={1}
-          onPress={handleClose}>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={(e) => e.stopPropagation()}>
-            <View style={styles.modalContent}>
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={handleClose}
-                activeOpacity={0.7}>
-                <X size={24} color="#718096" />
-              </TouchableOpacity>
+        <View style={styles.modal}>
+          <Pressable style={styles.modalBackdrop} onPress={handleClose} />
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={handleClose}
+              activeOpacity={0.7}>
+              <X size={28} color="#94A3B8" />
+            </TouchableOpacity>
 
-              <Text style={[styles.modalTitle, { color: '#EF4444' }]}>BUSTED!</Text>
-              <Text style={styles.modalSubtitle}>You got caught!</Text>
+            <Text style={[styles.modalTitle, { color: '#EF4444' }]}>BUSTED!</Text>
+            <Text style={styles.modalSubtitle}>You got caught!</Text>
 
-              <Text style={styles.failureEmoji}>😱</Text>
+            <Text style={styles.failureEmoji}>😱</Text>
 
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={handleTryAgain}
-                activeOpacity={0.7}>
-                <RotateCcw size={20} color="#FFF" />
-                <Text style={styles.modalButtonText}>Try Again</Text>
-              </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={handleTryAgain}
+              activeOpacity={0.7}>
+              <RotateCcw size={20} color="#FFF" />
+              <Text style={styles.modalButtonText}>Try Again</Text>
+            </TouchableOpacity>
 
-              <TouchableOpacity
-                style={[styles.modalButton, styles.modalButtonSecondary]}
-                onPress={handleHome}
-                activeOpacity={0.7}>
-                <Home size={20} color="#2D3748" />
-                <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
-                  Home
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.modalButton, styles.modalButtonSecondary]}
+              onPress={handleHome}
+              activeOpacity={0.7}>
+              <Home size={20} color="#2D3748" />
+              <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
+                Home
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Modal>
     </View>
   );
@@ -373,30 +355,49 @@ const styles = StyleSheet.create({
   },
   modal: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
+  },
+  modalBackdrop: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
   },
   modalContent: {
     backgroundColor: '#FFF',
     borderRadius: 24,
     padding: 32,
+    paddingTop: 40,
     alignItems: 'center',
-    width: '80%',
+    width: '85%',
     maxWidth: 400,
     position: 'relative',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 8,
   },
   closeButton: {
     position: 'absolute',
-    top: 16,
-    right: 16,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#EDF2F7',
+    top: 12,
+    right: 12,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#F1F5F9',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   modalTitle: {
     fontSize: 32,
