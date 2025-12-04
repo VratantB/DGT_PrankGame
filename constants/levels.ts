@@ -90,31 +90,31 @@ export const LEVELS: LevelConfig[] = [
     prankItem: {
       type: "briefcase",
       name: "Briefcase",
-      position: { x: -200, y: -100 }
+      position: { x: -120, y: -100 }
     },
     target: {
       type: "exit-door",
       name: "Exit Door",
-      position: { x: 280, y: -50 }
+      position: { x: 150, y: 50 }
     },
     npc: {
       type: "boss",
       name: "Boss",
-      startPosition: { x: 100, y: -250 },
+      startPosition: { x: 0, y: -200 },
       animation: "sitting"
     },
     props: [
-      { type: "desk", position: { x: 80, y: -270 }, width: 120, height: 80 },
-      { type: "desk", position: { x: -150, y: -200 }, width: 100, height: 70 },
-      { type: "chair", position: { x: 90, y: -220 }, width: 50, height: 50 }
+      { type: "desk", position: { x: -10, y: -220 }, width: 120, height: 80 },
+      { type: "desk", position: { x: -150, y: -100 }, width: 100, height: 70 },
+      { type: "chair", position: { x: 0, y: -170 }, width: 50, height: 50 }
     ],
     obstacles: [
-      { position: { x: -30, y: -100 }, width: 120, height: 20 },
-      { position: { x: 150, y: -180 }, width: 80, height: 20 }
+      { position: { x: -80, y: -50 }, width: 100, height: 20 },
+      { position: { x: 60, y: -150 }, width: 80, height: 20 }
     ],
     escapeZone: {
-      position: { x: 280, y: -80 },
-      width: 70,
+      position: { x: 150, y: 50 },
+      width: 80,
       height: 120
     }
   },
