@@ -80,6 +80,20 @@ export default function GameUI({
     }
   };
 
+  const handleClose = () => {
+    onResume();
+    setTimeout(() => {
+      router.replace('/(tabs)/levels');
+    }, 100);
+  };
+
+  const handleHome = () => {
+    onResume();
+    setTimeout(() => {
+      router.replace('/(tabs)');
+    }, 100);
+  };
+
   return (
     <View style={styles.container}>
       <View style={[styles.topBar, { paddingTop: Math.max(insets.top, 4) }]}>
@@ -160,7 +174,7 @@ export default function GameUI({
           <View style={styles.modalContent}>
             <TouchableOpacity
               style={styles.closeButton}
-              onPress={() => router.replace('/(tabs)/levels')}
+              onPress={handleClose}
               activeOpacity={0.7}>
               <X size={24} color="#718096" />
             </TouchableOpacity>
@@ -193,7 +207,7 @@ export default function GameUI({
 
             <TouchableOpacity
               style={[styles.modalButton, styles.modalButtonSecondary]}
-              onPress={() => router.replace('/(tabs)')}
+              onPress={handleHome}
               activeOpacity={0.7}>
               <Home size={20} color="#2D3748" />
               <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
