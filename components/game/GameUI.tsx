@@ -83,6 +83,13 @@ export default function GameUI({
     }
   };
 
+  const handleTryAgain = () => {
+    onResume();
+    setTimeout(() => {
+      router.replace('/(tabs)/play');
+    }, 100);
+  };
+
   const handleClose = () => {
     onResume();
     setTimeout(() => {
@@ -145,124 +152,145 @@ export default function GameUI({
       <Modal
         visible={gameState === 'paused'}
         transparent
-        animationType="fade">
-        <View style={styles.modal}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>PAUSED</Text>
+        animationType="fade"
+        onRequestClose={onResume}>
+        <TouchableOpacity
+          style={styles.modal}
+          activeOpacity={1}
+          onPress={onResume}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={(e) => e.stopPropagation()}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>PAUSED</Text>
 
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={onResume}
-              activeOpacity={0.7}>
-              <Play size={20} color="#FFF" />
-              <Text style={styles.modalButtonText}>Resume</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={onResume}
+                activeOpacity={0.7}>
+                <Play size={20} color="#FFF" />
+                <Text style={styles.modalButtonText}>Resume</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[styles.modalButton, styles.modalButtonSecondary]}
-              onPress={() => router.replace('/(tabs)')}
-              activeOpacity={0.7}>
-              <Home size={20} color="#2D3748" />
-              <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
-                Home
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalButtonSecondary]}
+                onPress={handleHome}
+                activeOpacity={0.7}>
+                <Home size={20} color="#2D3748" />
+                <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
+                  Home
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </TouchableOpacity>
       </Modal>
 
       <Modal
         visible={gameState === 'complete'}
         transparent
-        animationType="fade">
-        <View style={styles.modal}>
-          <View style={styles.modalContent}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={handleClose}
-              activeOpacity={0.7}>
-              <X size={24} color="#718096" />
-            </TouchableOpacity>
+        animationType="fade"
+        onRequestClose={handleClose}>
+        <TouchableOpacity
+          style={styles.modal}
+          activeOpacity={1}
+          onPress={handleClose}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={(e) => e.stopPropagation()}>
+            <View style={styles.modalContent}>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={handleClose}
+                activeOpacity={0.7}>
+                <X size={24} color="#718096" />
+              </TouchableOpacity>
 
-            <Text style={styles.modalTitle}>PRANK COMPLETE!</Text>
-            <Text style={styles.modalSubtitle}>You sneaky legend!</Text>
+              <Text style={styles.modalTitle}>PRANK COMPLETE!</Text>
+              <Text style={styles.modalSubtitle}>You sneaky legend!</Text>
 
-            <View style={styles.stars}>
-              <Text style={styles.starEmoji}>⭐</Text>
-              <Text style={styles.starEmoji}>⭐</Text>
-              <Text style={styles.starEmoji}>⭐</Text>
+              <View style={styles.stars}>
+                <Text style={styles.starEmoji}>⭐</Text>
+                <Text style={styles.starEmoji}>⭐</Text>
+                <Text style={styles.starEmoji}>⭐</Text>
+              </View>
+
+              {nextLevel <= 10 ? (
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={handleNextLevel}
+                  activeOpacity={0.7}>
+                  <Text style={styles.modalButtonText}>Play Level {nextLevel}</Text>
+                  <ArrowRight size={20} color="#FFF" />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={handleClose}
+                  activeOpacity={0.7}>
+                  <Text style={styles.modalButtonText}>View All Levels</Text>
+                </TouchableOpacity>
+              )}
+
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalButtonSecondary]}
+                onPress={handleHome}
+                activeOpacity={0.7}>
+                <Home size={20} color="#2D3748" />
+                <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
+                  Home
+                </Text>
+              </TouchableOpacity>
             </View>
-
-            {nextLevel <= 10 ? (
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={handleNextLevel}
-                activeOpacity={0.7}>
-                <Text style={styles.modalButtonText}>Play Level {nextLevel}</Text>
-                <ArrowRight size={20} color="#FFF" />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={() => router.replace('/(tabs)/levels')}
-                activeOpacity={0.7}>
-                <Text style={styles.modalButtonText}>View All Levels</Text>
-              </TouchableOpacity>
-            )}
-
-            <TouchableOpacity
-              style={[styles.modalButton, styles.modalButtonSecondary]}
-              onPress={handleHome}
-              activeOpacity={0.7}>
-              <Home size={20} color="#2D3748" />
-              <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
-                Home
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+          </TouchableOpacity>
+        </TouchableOpacity>
       </Modal>
 
       <Modal
         visible={gameState === 'failed'}
         transparent
-        animationType="fade">
-        <View style={styles.modal}>
-          <View style={styles.modalContent}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={handleClose}
-              activeOpacity={0.7}>
-              <X size={24} color="#718096" />
-            </TouchableOpacity>
+        animationType="fade"
+        onRequestClose={handleClose}>
+        <TouchableOpacity
+          style={styles.modal}
+          activeOpacity={1}
+          onPress={handleClose}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={(e) => e.stopPropagation()}>
+            <View style={styles.modalContent}>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={handleClose}
+                activeOpacity={0.7}>
+                <X size={24} color="#718096" />
+              </TouchableOpacity>
 
-            <Text style={[styles.modalTitle, { color: '#EF4444' }]}>BUSTED!</Text>
-            <Text style={styles.modalSubtitle}>You got caught!</Text>
+              <Text style={[styles.modalTitle, { color: '#EF4444' }]}>BUSTED!</Text>
+              <Text style={styles.modalSubtitle}>You got caught!</Text>
 
-            <Text style={styles.failureEmoji}>😱</Text>
+              <Text style={styles.failureEmoji}>😱</Text>
 
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => {
-                onResume();
-                router.replace('/(tabs)/play');
-              }}
-              activeOpacity={0.7}>
-              <RotateCcw size={20} color="#FFF" />
-              <Text style={styles.modalButtonText}>Try Again</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={handleTryAgain}
+                activeOpacity={0.7}>
+                <RotateCcw size={20} color="#FFF" />
+                <Text style={styles.modalButtonText}>Try Again</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[styles.modalButton, styles.modalButtonSecondary]}
-              onPress={handleHome}
-              activeOpacity={0.7}>
-              <Home size={20} color="#2D3748" />
-              <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
-                Home
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalButtonSecondary]}
+                onPress={handleHome}
+                activeOpacity={0.7}>
+                <Home size={20} color="#2D3748" />
+                <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
+                  Home
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </TouchableOpacity>
       </Modal>
     </View>
   );
