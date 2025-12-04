@@ -3,9 +3,10 @@ import { memo } from 'react';
 
 interface PlayerProps {
   hasItem?: boolean;
+  itemType?: 'note' | 'default';
 }
 
-function Player({ hasItem = false }: PlayerProps) {
+function Player({ hasItem = false, itemType = 'default' }: PlayerProps) {
   return (
     <View style={styles.container}>
       <View style={styles.playerOutline} />
@@ -17,7 +18,11 @@ function Player({ hasItem = false }: PlayerProps) {
       {hasItem && (
         <View style={styles.item}>
           <View style={styles.itemGlow} />
-          <View style={styles.ketchup} />
+          {itemType === 'note' ? (
+            <View style={styles.note} />
+          ) : (
+            <View style={styles.genericItem} />
+          )}
         </View>
       )}
     </View>
@@ -82,15 +87,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFD700',
     opacity: 0.4,
   },
-  ketchup: {
+  note: {
+    width: 20,
+    height: 20,
+    backgroundColor: '#FBBF24',
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#F59E0B',
+    transform: [{ rotate: '45deg' }],
+  },
+  genericItem: {
     width: 18,
     height: 24,
-    backgroundColor: '#F44336',
+    backgroundColor: '#FFD700',
     borderRadius: 9,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
     borderWidth: 2,
-    borderColor: '#C62828',
+    borderColor: '#FFA500',
   },
 });
 

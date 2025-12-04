@@ -16,10 +16,16 @@ interface GameUIProps {
   detectionLevel?: number;
 }
 
-const getInstructionText = (progress: number): string => {
-  if (progress === 0) return '👆 Drag the character to collect the glowing ketchup bottle';
-  if (progress === 50) return '✅ Great! Now place it on the boss\'s chair without getting caught';
-  if (progress === 100) return '🎉 Prank complete! Get to the exit!';
+const getInstructionText = (progress: number, currentLevel?: number): string => {
+  if (currentLevel === 1) {
+    if (progress === 0) return '👆 Drag yourself to pick up the note';
+    if (progress === 50) return '✅ Now pass it to the girl without the teacher seeing!';
+    if (progress === 100) return '💕 She got the note! You did it!';
+  }
+
+  if (progress === 0) return '👆 Drag the character to collect the glowing item';
+  if (progress === 50) return '✅ Great! Now place it at the target without getting caught';
+  if (progress === 100) return '🎉 Objective complete! Get to the exit!';
   return '';
 };
 
@@ -145,7 +151,7 @@ export default function GameUI({
               transform: [{ scale: bannerScale }],
             }
           ]}>
-          <Text style={styles.instructionText}>{getInstructionText(progress)}</Text>
+          <Text style={styles.instructionText}>{getInstructionText(progress, currentLevel)}</Text>
         </Animated.View>
       )}
 

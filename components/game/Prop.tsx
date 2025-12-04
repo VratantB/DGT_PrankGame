@@ -2,7 +2,7 @@ import { View, StyleSheet, Animated } from 'react-native';
 import { memo, useEffect, useRef } from 'react';
 
 interface PropProps {
-  type: 'table' | 'chair' | 'desk' | 'counter' | 'fridge' | 'stool' | 'sink' | 'whiteboard' | 'bookshelf' | 'student-desk' | 'bed' | 'door' | 'bench' | 'mirror' | 'umbrella' | 'railing' | 'stove' | 'note' | 'briefcase' | 'courage' | 'dumbbell' | 'shoes' | 'confidence' | 'phone' | 'student-id' | 'cupcake' | 'goodbye' | 'student' | 'exit-door' | 'crush-spot' | 'bedroom-door' | 'crush-wave' | 'selfie-spot' | 'dorm-door' | 'exit-kitchen' | 'romantic-spot';
+  type: 'table' | 'chair' | 'desk' | 'counter' | 'fridge' | 'stool' | 'sink' | 'whiteboard' | 'chalkboard' | 'teacher-desk' | 'student-desk-you' | 'student-desk-girl' | 'bookshelf' | 'student-desk' | 'bed' | 'door' | 'bench' | 'mirror' | 'umbrella' | 'railing' | 'stove' | 'book' | 'pencil-case' | 'water-bottle' | 'plant' | 'towel' | 'water-fountain' | 'note' | 'briefcase' | 'courage' | 'dumbbell' | 'shoes' | 'confidence' | 'phone' | 'student-id' | 'cupcake' | 'goodbye' | 'student' | 'girl' | 'exit-door' | 'crush-spot' | 'bedroom-door' | 'crush-wave' | 'selfie-spot' | 'dorm-door' | 'exit-kitchen' | 'romantic-spot';
   x: number;
   y: number;
   visible?: boolean;
@@ -141,6 +141,57 @@ function Prop({ type, x, y, visible = true, hasPrank = false, width, height }: P
       case 'whiteboard':
         return <View style={[styles.simpleBox, { backgroundColor: '#FFF', width: width || 200, height: height || 120, borderWidth: 3, borderColor: '#000' }]} />;
 
+      case 'chalkboard':
+        return (
+          <View style={[styles.simpleBox, { backgroundColor: '#2D3748', width: width || 240, height: height || 100, borderWidth: 4, borderColor: '#8B4513' }]}>
+            <View style={{ position: 'absolute', top: 10, left: 10, width: 30, height: 3, backgroundColor: '#FFF', opacity: 0.3 }} />
+            <View style={{ position: 'absolute', top: 20, left: 10, width: 50, height: 3, backgroundColor: '#FFF', opacity: 0.3 }} />
+            <View style={{ position: 'absolute', top: 30, left: 10, width: 40, height: 3, backgroundColor: '#FFF', opacity: 0.3 }} />
+          </View>
+        );
+
+      case 'teacher-desk':
+        return <View style={[styles.simpleBox, { backgroundColor: '#8B6F47', width: width || 100, height: height || 60, borderWidth: 3, borderColor: '#654321' }]} />;
+
+      case 'student-desk':
+        return <View style={[styles.simpleBox, { backgroundColor: '#D4A574', width: width || 60, height: height || 50, borderWidth: 2, borderColor: '#8B6F47' }]} />;
+
+      case 'student-desk-you':
+        return (
+          <View style={[styles.simpleBox, { backgroundColor: '#D4A574', width: width || 60, height: height || 50, borderWidth: 3, borderColor: '#4299E1' }]}>
+            <View style={{ position: 'absolute', top: -8, left: 10, backgroundColor: '#4299E1', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 }}>
+              <View style={{ width: 8, height: 8, backgroundColor: '#FFF', borderRadius: 4 }} />
+            </View>
+          </View>
+        );
+
+      case 'student-desk-girl':
+        return (
+          <View style={[styles.simpleBox, { backgroundColor: '#D4A574', width: width || 60, height: height || 50, borderWidth: 3, borderColor: '#F472B6' }]}>
+            <View style={{ position: 'absolute', top: -8, right: 10, backgroundColor: '#F472B6', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 }}>
+              <View style={{ width: 8, height: 8, backgroundColor: '#FFF', borderRadius: 4 }} />
+            </View>
+          </View>
+        );
+
+      case 'book':
+        return <View style={[styles.simpleBox, { backgroundColor: '#DC2626', width: width || 20, height: height || 15, borderRadius: 2 }]} />;
+
+      case 'pencil-case':
+        return <View style={[styles.simpleBox, { backgroundColor: '#7C3AED', width: width || 18, height: height || 12, borderRadius: 4 }]} />;
+
+      case 'water-bottle':
+        return <View style={[styles.simpleBox, { backgroundColor: '#3B82F6', width: width || 12, height: height || 25, borderRadius: 6, opacity: 0.7 }]} />;
+
+      case 'plant':
+        return <View style={[styles.simpleBox, { backgroundColor: '#10B981', width: width || 30, height: height || 40, borderRadius: 20 }]} />;
+
+      case 'towel':
+        return <View style={[styles.simpleBox, { backgroundColor: '#FB923C', width: width || 60, height: height || 80, borderRadius: 4 }]} />;
+
+      case 'water-fountain':
+        return <View style={[styles.simpleBox, { backgroundColor: '#60A5FA', width: width || 60, height: height || 80, borderRadius: 8 }]} />;
+
       case 'bookshelf':
         return <View style={[styles.simpleBox, { backgroundColor: '#6D4C41', width: width || 80, height: height || 180 }]} />;
 
@@ -158,6 +209,22 @@ function Prop({ type, x, y, visible = true, hasPrank = false, width, height }: P
 
       case 'door':
         return <View style={[styles.simpleBox, { backgroundColor: '#8B4513', width: width || 80, height: height || 140 }]} />;
+
+      case 'girl':
+        return (
+          <View style={styles.girlContainer}>
+            {!hasPrank && <View style={styles.targetIndicator} />}
+            {hasPrank && (
+              <View style={styles.girlWithNote}>
+                <View style={styles.girlFigure} />
+                <View style={styles.heartIndicator}>
+                  <View style={styles.heart} />
+                </View>
+              </View>
+            )}
+            {!hasPrank && <View style={styles.girlFigure} />}
+          </View>
+        );
 
       case 'student':
       case 'exit-door':
@@ -388,6 +455,36 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: '#4CAF50',
     borderRadius: 10,
+  },
+  girlContainer: {
+    width: 50,
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  girlFigure: {
+    width: 40,
+    height: 60,
+    backgroundColor: '#F472B6',
+    borderRadius: 20,
+    borderWidth: 3,
+    borderColor: '#EC4899',
+  },
+  girlWithNote: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heartIndicator: {
+    position: 'absolute',
+    top: -15,
+    right: -5,
+  },
+  heart: {
+    width: 16,
+    height: 16,
+    backgroundColor: '#F43F5E',
+    transform: [{ rotate: '45deg' }],
+    borderRadius: 8,
   },
 });
 

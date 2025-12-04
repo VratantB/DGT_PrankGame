@@ -53,43 +53,54 @@ export const LEVELS: LevelConfig[] = [
     environment: "Modern Classroom",
     backgroundColor: "#FFF8E7",
     floorColor: "#F5E6D3",
-    objective: "Pass the note to your crush",
+    objective: "Pass the note without getting caught",
     difficulty: {
-      visionRange: 180,
-      visionAngle: 90,
-      detectionSpeed: 0.3,
+      visionRange: 200,
+      visionAngle: 100,
+      detectionSpeed: 0.35,
       alertThreshold: 100,
     },
     prankItem: {
       type: "note",
-      name: "Love Note",
-      position: { x: -100, y: -150 }
+      name: "Folded Note",
+      position: { x: -80, y: -100 }
     },
     target: {
-      type: "student",
-      name: "Crush",
-      position: { x: 150, y: -150 }
+      type: "girl",
+      name: "Girl",
+      position: { x: 80, y: -100 }
     },
     npc: {
       type: "teacher",
       name: "Teacher",
-      startPosition: { x: 0, y: -350 },
+      startPosition: { x: 0, y: -280 },
+      patrolPath: [
+        { x: 0, y: -280 },
+        { x: -60, y: -280 },
+        { x: 0, y: -280 },
+        { x: 60, y: -280 }
+      ],
       animation: "writing"
     },
     props: [
-      { type: "whiteboard", position: { x: 0, y: -380 }, width: 200, height: 120 },
-      { type: "student-desk", position: { x: -120, y: -180 }, width: 70, height: 60 },
-      { type: "student-desk", position: { x: 130, y: -180 }, width: 70, height: 60 },
-      { type: "student-desk", position: { x: -120, y: -50 }, width: 70, height: 60 },
-      { type: "student-desk", position: { x: 130, y: -50 }, width: 70, height: 60 }
+      { type: "chalkboard", position: { x: 0, y: -320 }, width: 240, height: 100 },
+      { type: "teacher-desk", position: { x: 0, y: -260 }, width: 100, height: 60 },
+      { type: "student-desk-you", position: { x: -80, y: -100 }, width: 60, height: 50 },
+      { type: "student-desk-girl", position: { x: 80, y: -100 }, width: 60, height: 50 },
+      { type: "student-desk", position: { x: -80, y: 30 }, width: 60, height: 50 },
+      { type: "student-desk", position: { x: 80, y: 30 }, width: 60, height: 50 },
+      { type: "book", position: { x: -90, y: -110 }, width: 20, height: 15 },
+      { type: "pencil-case", position: { x: -70, y: -105 }, width: 18, height: 12 },
+      { type: "water-bottle", position: { x: 85, y: -110 }, width: 12, height: 25 }
     ],
     obstacles: [
-      { position: { x: -80, y: -340 }, width: 150, height: 20 }
+      { position: { x: -100, y: -260 }, width: 80, height: 60 },
+      { position: { x: 20, y: -260 }, width: 80, height: 60 }
     ],
     escapeZone: {
-      position: { x: -300, y: 80 },
-      width: 80,
-      height: 100
+      position: { x: 80, y: -100 },
+      width: 60,
+      height: 50
     }
   },
   {

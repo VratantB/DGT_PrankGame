@@ -275,7 +275,7 @@ export default function GameCanvas({ gameState, onProgressUpdate, onDetectionCha
             ],
           },
         ]}>
-        <Player hasItem={hasItem} />
+        <Player hasItem={hasItem} itemType={levelConfig.prankItem.type as any} />
       </Animated.View>
 
       <Animated.View
