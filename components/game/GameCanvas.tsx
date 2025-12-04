@@ -100,6 +100,7 @@ export default function GameCanvas({ gameState, onProgressUpdate, level = 1 }: G
   }, [gameState, npcX, centerX, levelConfig.npc.startPosition.x]);
 
   const gestureStartPos = useRef({ x: 0, y: 0 });
+  const isValidGesture = useRef(false);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -113,12 +114,13 @@ export default function GameCanvas({ gameState, onProgressUpdate, level = 1 }: G
 
         if (distance < 60) {
           gestureStartPos.current = { x: lastPlayerPos.current.x, y: lastPlayerPos.current.y };
-          return true;
+          isValidGesture.current = true;
+        } else {
+          isValidGesture.current = false;
         }
-        return false;
       },
       onPanResponderMove: (evt, gestureState) => {
-        if (gameState !== 'playing') return;
+        if (gameState !== 'playing' || !isValidGesture.current) return;
 
         const newX = Math.max(40, Math.min(GAME_WIDTH - 40, gestureStartPos.current.x + gestureState.dx));
         const newY = Math.max(100, Math.min(GAME_HEIGHT - 40, gestureStartPos.current.y + gestureState.dy));
@@ -127,6 +129,8 @@ export default function GameCanvas({ gameState, onProgressUpdate, level = 1 }: G
         playerY.setValue(newY);
       },
       onPanResponderRelease: (evt, gestureState) => {
+        if (!isValidGesture.current) return;
+
         const newX = Math.max(40, Math.min(GAME_WIDTH - 40, gestureStartPos.current.x + gestureState.dx));
         const newY = Math.max(100, Math.min(GAME_HEIGHT - 40, gestureStartPos.current.y + gestureState.dy));
         lastPlayerPos.current = { x: newX, y: newY };
