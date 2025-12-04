@@ -76,9 +76,9 @@ export const LEVELS: LevelConfig[] = [
       startPosition: { x: 0, y: -280 },
       patrolPath: [
         { x: 0, y: -280 },
-        { x: -60, y: -280 },
+        { x: 0, y: -320 },
         { x: 0, y: -280 },
-        { x: 60, y: -280 }
+        { x: 0, y: -240 }
       ],
       animation: "writing"
     },
