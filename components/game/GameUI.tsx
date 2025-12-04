@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, Modal, Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Pause, Play, Home, RotateCcw, ArrowRight } from 'lucide-react-native';
+import { Pause, Play, Home, RotateCcw, ArrowRight, X } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef } from 'react';
 
@@ -158,6 +158,13 @@ export default function GameUI({
         animationType="fade">
         <View style={styles.modal}>
           <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => router.replace('/(tabs)/levels')}
+              activeOpacity={0.7}>
+              <X size={24} color="#718096" />
+            </TouchableOpacity>
+
             <Text style={styles.modalTitle}>PRANK COMPLETE!</Text>
             <Text style={styles.modalSubtitle}>You sneaky legend!</Text>
 
@@ -288,6 +295,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '80%',
     maxWidth: 400,
+    position: 'relative',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#EDF2F7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
   },
   modalTitle: {
     fontSize: 32,
