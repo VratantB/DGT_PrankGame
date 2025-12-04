@@ -4,6 +4,7 @@ import Player from './Player';
 import NPC from './NPC';
 import Prop from './Prop';
 import { getLevelConfig } from '@/constants/levels';
+import { isInVisionCone, hasLineOfSight, calculateDetectionLevel } from '@/utils/detectionSystem';
 
 const { width, height } = Dimensions.get('window');
 const GAME_WIDTH = width;
@@ -12,10 +13,12 @@ const GAME_HEIGHT = height;
 interface GameCanvasProps {
   gameState: 'playing' | 'paused' | 'complete' | 'failed';
   onProgressUpdate: (progress: number) => void;
+  onDetectionChange?: (level: number) => void;
+  onGameOver?: () => void;
   level?: number;
 }
 
-export default function GameCanvas({ gameState, onProgressUpdate, level = 1 }: GameCanvasProps) {
+export default function GameCanvas({ gameState, onProgressUpdate, onDetectionChange, onGameOver, level = 1 }: GameCanvasProps) {
   const levelConfig = getLevelConfig(level);
   const centerX = GAME_WIDTH / 2;
   const centerY = GAME_HEIGHT * 0.55;
@@ -27,8 +30,14 @@ export default function GameCanvas({ gameState, onProgressUpdate, level = 1 }: G
 
   const [hasItem, setHasItem] = useState(false);
   const [prankComplete, setPrankComplete] = useState(false);
+  const [detectionLevel, setDetectionLevel] = useState(0);
+  const [npcState, setNpcState] = useState<'idle' | 'alert'>(levelConfig.npc.animation as any);
   const npcDirection = useRef(1);
   const lastPlayerPos = useRef({ x: 100, y: GAME_HEIGHT - 150 });
+  const currentNpcPos = useRef({
+    x: centerX + levelConfig.npc.startPosition.x,
+    y: centerY + levelConfig.npc.startPosition.y
+  });
 
   const checkCollisions = useCallback(() => {
     const x = lastPlayerPos.current.x;
@@ -71,6 +80,75 @@ export default function GameCanvas({ gameState, onProgressUpdate, level = 1 }: G
     };
   }, [playerX, playerY, checkCollisions]);
 
+  useEffect(() => {
+    const npcXListener = npcX.addListener(({ value }) => {
+      currentNpcPos.current.x = value;
+    });
+    const npcYListener = npcY.addListener(({ value }) => {
+      currentNpcPos.current.y = value;
+    });
+
+    return () => {
+      npcX.removeListener(npcXListener);
+      npcY.removeListener(npcYListener);
+    };
+  }, [npcX, npcY]);
+
+  useEffect(() => {
+    if (gameState !== 'playing') return;
+
+    const detectionInterval = setInterval(() => {
+      const inVision = isInVisionCone(
+        lastPlayerPos.current.x,
+        lastPlayerPos.current.y,
+        currentNpcPos.current.x,
+        currentNpcPos.current.y,
+        npcDirection.current,
+        levelConfig.difficulty.visionRange,
+        levelConfig.difficulty.visionAngle
+      );
+
+      const obstacles = levelConfig.obstacles.map(obs => ({
+        x: centerX + obs.position.x,
+        y: centerY + obs.position.y,
+        width: obs.width,
+        height: obs.height,
+      }));
+
+      const hasLOS = hasLineOfSight(
+        lastPlayerPos.current.x,
+        lastPlayerPos.current.y,
+        currentNpcPos.current.x,
+        currentNpcPos.current.y,
+        obstacles
+      );
+
+      setDetectionLevel(prev => {
+        const newLevel = calculateDetectionLevel(
+          inVision,
+          hasLOS,
+          prev,
+          levelConfig.difficulty.detectionSpeed,
+          100
+        );
+
+        if (newLevel >= levelConfig.difficulty.alertThreshold) {
+          setNpcState('alert');
+          onGameOver?.();
+        } else if (newLevel > 30) {
+          setNpcState('alert');
+        } else {
+          setNpcState(levelConfig.npc.animation as any);
+        }
+
+        onDetectionChange?.(newLevel);
+        return newLevel;
+      });
+    }, 100);
+
+    return () => clearInterval(detectionInterval);
+  }, [gameState, levelConfig, centerX, centerY, onDetectionChange, onGameOver]);
+
   const currentNpcX = useRef(centerX + levelConfig.npc.startPosition.x);
 
   useEffect(() => {
@@ -89,6 +167,7 @@ export default function GameCanvas({ gameState, onProgressUpdate, level = 1 }: G
       }
 
       currentNpcX.current = newX;
+      currentNpcPos.current.x = newX;
       Animated.timing(npcX, {
         toValue: newX,
         duration: 1500,
@@ -209,7 +288,7 @@ export default function GameCanvas({ gameState, onProgressUpdate, level = 1 }: G
             ],
           },
         ]}>
-        <NPC type={levelConfig.npc.type as any} state={levelConfig.npc.animation as any} />
+        <NPC type={levelConfig.npc.type as any} state={npcState} />
       </Animated.View>
 
       {prankComplete && (

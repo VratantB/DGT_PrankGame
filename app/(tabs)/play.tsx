@@ -9,6 +9,7 @@ export default function PlayScreen() {
   const [gameState, setGameState] = useState<'playing' | 'paused' | 'complete' | 'failed'>('playing');
   const [currentLevel, setCurrentLevel] = useState(1);
   const [progress, setProgress] = useState(0);
+  const [detectionLevel, setDetectionLevel] = useState(0);
   const { updateProgress } = useLevelProgress();
 
   const objective = getLevelConfig(currentLevel).objective;
@@ -23,7 +24,12 @@ export default function PlayScreen() {
   const handleRestart = () => {
     setCurrentLevel(prev => prev + 1);
     setProgress(0);
+    setDetectionLevel(0);
     setGameState('playing');
+  };
+
+  const handleGameOver = () => {
+    setGameState('failed');
   };
 
   return (
@@ -32,6 +38,8 @@ export default function PlayScreen() {
         key={currentLevel}
         gameState={gameState}
         onProgressUpdate={setProgress}
+        onDetectionChange={setDetectionLevel}
+        onGameOver={handleGameOver}
         level={currentLevel}
       />
       <GameUI
@@ -42,6 +50,7 @@ export default function PlayScreen() {
         onResume={() => setGameState('playing')}
         onRestart={handleRestart}
         currentLevel={currentLevel}
+        detectionLevel={detectionLevel}
       />
     </View>
   );

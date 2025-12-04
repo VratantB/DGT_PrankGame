@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Pause, Play, Home, RotateCcw, ArrowRight, X } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef } from 'react';
+import DetectionMeter from './DetectionMeter';
 
 interface GameUIProps {
   objective: string;
@@ -12,6 +13,7 @@ interface GameUIProps {
   onResume: () => void;
   onRestart?: () => void;
   currentLevel?: number;
+  detectionLevel?: number;
 }
 
 const getInstructionText = (progress: number): string => {
@@ -29,6 +31,7 @@ export default function GameUI({
   onResume,
   onRestart,
   currentLevel = 1,
+  detectionLevel = 0,
 }: GameUIProps) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -124,6 +127,8 @@ export default function GameUI({
         />
       </View>
 
+      {gameState === 'playing' && <DetectionMeter level={detectionLevel} />}
+
       {gameState === 'playing' && (
         <Animated.View
           style={[
@@ -204,6 +209,48 @@ export default function GameUI({
                 <Text style={styles.modalButtonText}>View All Levels</Text>
               </TouchableOpacity>
             )}
+
+            <TouchableOpacity
+              style={[styles.modalButton, styles.modalButtonSecondary]}
+              onPress={handleHome}
+              activeOpacity={0.7}>
+              <Home size={20} color="#2D3748" />
+              <Text style={[styles.modalButtonText, styles.modalButtonTextSecondary]}>
+                Home
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        visible={gameState === 'failed'}
+        transparent
+        animationType="fade">
+        <View style={styles.modal}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={handleClose}
+              activeOpacity={0.7}>
+              <X size={24} color="#718096" />
+            </TouchableOpacity>
+
+            <Text style={[styles.modalTitle, { color: '#EF4444' }]}>BUSTED!</Text>
+            <Text style={styles.modalSubtitle}>You got caught!</Text>
+
+            <Text style={styles.failureEmoji}>😱</Text>
+
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => {
+                onResume();
+                router.replace('/(tabs)/play');
+              }}
+              activeOpacity={0.7}>
+              <RotateCcw size={20} color="#FFF" />
+              <Text style={styles.modalButtonText}>Try Again</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={[styles.modalButton, styles.modalButtonSecondary]}
@@ -344,6 +391,10 @@ const styles = StyleSheet.create({
   },
   starEmoji: {
     fontSize: 40,
+  },
+  failureEmoji: {
+    fontSize: 80,
+    marginBottom: 32,
   },
   modalButton: {
     backgroundColor: '#4299E1',

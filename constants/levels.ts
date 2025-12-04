@@ -5,6 +5,12 @@ export interface LevelConfig {
   backgroundColor: string;
   floorColor: string;
   objective: string;
+  difficulty: {
+    visionRange: number;
+    visionAngle: number;
+    detectionSpeed: number;
+    alertThreshold: number;
+  };
   prankItem: {
     type: string;
     name: string;
@@ -48,6 +54,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#FFF8E7",
     floorColor: "#F5E6D3",
     objective: "Pass the note to your crush",
+    difficulty: {
+      visionRange: 180,
+      visionAngle: 90,
+      detectionSpeed: 0.3,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "note",
       name: "Love Note",
@@ -87,6 +99,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#E8F4F8",
     floorColor: "#D4E8EE",
     objective: "Sneak out without boss noticing",
+    difficulty: {
+      visionRange: 200,
+      visionAngle: 100,
+      detectionSpeed: 0.4,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "briefcase",
       name: "Briefcase",
@@ -125,6 +143,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#F8F0E3",
     floorColor: "#E8D7C3",
     objective: "Sneak a kiss without being caught",
+    difficulty: {
+      visionRange: 220,
+      visionAngle: 110,
+      detectionSpeed: 0.5,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "courage",
       name: "Courage",
@@ -163,6 +187,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#1A1A2E",
     floorColor: "#16213E",
     objective: "Fake reps without trainer noticing",
+    difficulty: {
+      visionRange: 240,
+      visionAngle: 120,
+      detectionSpeed: 0.6,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "dumbbell",
       name: "Heavy Weight",
@@ -200,6 +230,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#2C2C3E",
     floorColor: "#1F1F2E",
     objective: "Get to room without waking parents",
+    difficulty: {
+      visionRange: 160,
+      visionAngle: 80,
+      detectionSpeed: 0.7,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "shoes",
       name: "Your Shoes",
@@ -236,6 +272,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#FFF9F0",
     floorColor: "#F5EDE0",
     objective: "Wave at crush without friend seeing",
+    difficulty: {
+      visionRange: 260,
+      visionAngle: 130,
+      detectionSpeed: 0.8,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "confidence",
       name: "Confidence",
@@ -273,6 +315,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#87CEEB",
     floorColor: "#F4E4C1",
     objective: "Take selfie without lifeguard noticing",
+    difficulty: {
+      visionRange: 280,
+      visionAngle: 140,
+      detectionSpeed: 0.9,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "phone",
       name: "Smartphone",
@@ -310,6 +358,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#2E3A4E",
     floorColor: "#1F2937",
     objective: "Get past RA after curfew",
+    difficulty: {
+      visionRange: 300,
+      visionAngle: 150,
+      detectionSpeed: 1.0,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "student-id",
       name: "Student ID",
@@ -347,6 +401,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#F5F5F5",
     floorColor: "#E0E0E0",
     objective: "Steal cupcake without chef seeing",
+    difficulty: {
+      visionRange: 320,
+      visionAngle: 160,
+      detectionSpeed: 1.2,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "cupcake",
       name: "Delicious Cupcake",
@@ -385,6 +445,12 @@ export const LEVELS: LevelConfig[] = [
     backgroundColor: "#1E3A5F",
     floorColor: "#2C4A6E",
     objective: "Say goodbye without guard noticing",
+    difficulty: {
+      visionRange: 350,
+      visionAngle: 170,
+      detectionSpeed: 1.5,
+      alertThreshold: 100,
+    },
     prankItem: {
       type: "goodbye",
       name: "Final Words",
